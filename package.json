@@ -1,0 +1,37 @@
+{
+  "name": "authentication",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "body-parser": "^1.15.0",
+    "browserify": "^13.0.0",
+    "collections": "^3.0.0",
+    "connect": "^3.4.1",
+    "cookie-parser": "^1.4.1",
+    "debug": "^2.2.0",
+    "express": "file:express",
+    "favicons": "^4.6.1",
+    "gulp": "^3.9.1",
+    "json-stringify-safe": "^5.0.1",
+    "lazy.js": "^0.4.2",
+    "mongo-connect": "0.0.6",
+    "mongodb": "^2.1.7",
+    "mongoose": "^4.4.4",
+    "multer": "file:multer",
+    "nodemailer": "^2.2.0",
+    "nodemailer-smtp-transport": "^2.4.0",
+    "parse": "^1.7.0",
+    "pipe": "^1.1.0",
+    "routes": "^2.1.0",
+    "semver": "^5.1.0",
+    "stream-buffers": "^3.0.0",
+    "streams2mongo": "^1.0.1",
+    "type-detect": "^1.0.0",
+    "uniq": "^1.0.1",
+    "use-strict": "^1.0.1"
+  }
+}

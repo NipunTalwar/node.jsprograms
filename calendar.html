@@ -1,0 +1,134 @@
+
+/*
+JavaScript Bible, Fourth Edition
+by Danny Goodman 
+
+John Wiley & Sons CopyRight 2001
+*/
+<HTML>
+<HEAD>
+<TITLE>JavaScripted Dynamic Table</TITLE>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- start
+// function becomes a method for each month object
+function getFirstDay(theYear, theMonth){
+    var firstDate = new Date(theYear,theMonth,1)
+    return firstDate.getDay()
+}
+// number of days in the month
+function getMonthLen(theYear, theMonth) {
+    var oneDay = 1000 * 60 * 60 * 24
+    var thisMonth = new Date(theYear, theMonth, 1)
+    var nextMonth = new Date(theYear, theMonth + 1, 1)
+    var len = Math.ceil((nextMonth.getTime() - 
+        thisMonth.getTime())/oneDay)
+    return len
+}
+// correct for Y2K anomalies
+function getY2KYear(today) {
+    var yr = today.getYear()
+    return ((yr < 1900) ? yr+1900 : yr)
+}
+// create basic array
+theMonths = new MakeArray(12)
+// load array with English month names
+function MakeArray(n) {
+    this[0] = "January"
+    this[1] = "February"
+    this[2] = "March"
+    this[3] = "April"
+    this[4] = "May"
+    this[5] = "June"
+    this[6] = "July"
+    this[7] = "August"
+    this[8] = "September"
+    this[9] = "October"
+    this[10] = "November"
+    this[11] = "December"
+    this.length = n
+    return this
+}
+// deferred function to fill fields of table
+function populateFields(form) {
+    // initialize variables for later from user selections
+    var theMonth = form.chooseMonth.selectedIndex
+    var theYear = form.chooseYear.options[form.chooseYear.selectedIndex].text
+    // initialize date-dependent variables
+
+    // which is the first day of this month?
+    var firstDay = getFirstDay(theYear, theMonth)
+    // total number of <TD>...</TD> tags needed in for loop below
+    var howMany = getMonthLen(theYear, theMonth)
+
+    // set month and year in top field
+    form.oneMonth.value = theMonths[theMonth] + " " + theYear
+    // fill fields of table
+    for (var i = 0; i < 42; i++) {
+        if (i < firstDay || i >= (howMany + firstDay)) {
+            // before and after actual dates, empty fields
+            // address fields by name and [index] number
+            form.oneDay[i].value = ""
+        } else {
+            // enter date values
+            form.oneDay[i].value = i - firstDay + 1
+       }
+    }
+}
+
+// end -->
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<H1>Month at a Glance (Dynamic)</H1>
+<HR>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- start
+// initialize variable with HTML for each day's field
+// all will have same name, so we can access via index value
+// empty event handler prevents
+// reverse-loading bug in some platforms
+var oneField = "<INPUT TYPE='text' NAME='oneDay' SIZE=2 onFocus=''>"
+// start assembling HTML for raw table
+var content = "<FORM><CENTER><TABLE BORDER>"
+// field for month and year display at top of calendar
+content += "<TR><TH COLSPAN=7><INPUT TYPE='text' NAME='oneMonth'></TH></TR>"
+// days of the week at head of each column
+content += "<TR><TH>Sun</TH><TH>Mon</TH><TH>Tue</TH><TH>Wed</TH>"
+content += "<TH>Thu</TH><TH>Fri</TH><TH>Sat</TH></TR>"
+content += "<TR>"
+
+// layout 6 rows of fields for worst-case month
+for (var i = 1; i < 43; i++) {
+    content += "<TD ALIGN='middle'>" + oneField + "</TD>"
+    if (i % 7 == 0) {
+        content += "</TR><TR>"
+    }
+}
+
+content += "</TABLE>"
+// blast empty table to the document
+document.write(content)
+
+// end -->
+</SCRIPT>
+<SELECT NAME="chooseMonth">
+<OPTION SELECTED>January<OPTION>February
+<OPTION>March<OPTION>April<OPTION>May
+<OPTION>June<OPTION>July<OPTION>August
+<OPTION>September<OPTION>October<OPTION>November<OPTION>December
+</SELECT>
+<SELECT NAME="chooseYear">
+<OPTION SELECTED>2000<OPTION>2001
+<OPTION>2002<OPTION>2003
+<OPTION>2004<OPTION>2005
+<OPTION>2006<OPTION>2007
+</SELECT>
+<INPUT TYPE="button" NAME="updater" VALUE="Update Calendar" onClick="populateFields(this.form)">
+</FORM>
+</BODY>
+</HTML>
+
+
+           
+         
